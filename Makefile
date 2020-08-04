@@ -6,6 +6,7 @@ DOCKERFILE_PATH := deployment/Dockerfile
 DOCKER_IMAGE_TAG := ${PACKAGE_NAME}:${VERSION}
 
 drun = docker run -it --rm -v $(shell pwd):/code ${DOCKER_IMAGE_TAG}
+# drun = docker run -it --rm ${DOCKER_IMAGE_TAG}
 
 export DOCKER_BUILDKIT=1
 
@@ -17,7 +18,10 @@ help:  ## Print help and exit
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
-build:  # Build the docker image for doing things 
+cleanup:  ## Cleanup the dist folder
+	rm -rf dist/* 2> /dev/null
+
+build: cleanup  # Build the docker image for doing things 
 	docker build \
 		-f ${DOCKERFILE_PATH} \
 		-t ${DOCKER_IMAGE_TAG} \
@@ -31,9 +35,9 @@ check-pkg: build-pkg ## Sanity check the package
 	$(drun) \
 		twine check dist/*
 
-upload: check-pkg  ## Upload the package to repo
+publish: check-pkg  ## Upload the package to repo
 	$(drun) \
-		twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+		twine upload dist/*
 
 ls: ## list all the files in the package:
 	$(drun) \

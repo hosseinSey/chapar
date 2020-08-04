@@ -4,8 +4,7 @@ from setuptools import setup, find_packages
 here = pathlib.Path(__file__).parent
 README = (here / "README.md").read_text()
 
-VERSION = '0.1.0'
-
+VERSION = '0.1.4'
 
 setup(
     name="chapar",
@@ -23,10 +22,10 @@ setup(
     ],
     packages=find_packages(exclude=("tests",)),
     include_package_data=True,
-    install_requires=[],
+    install_requires=["pulsar-client"],
     entry_points={
         "console_scripts": [
-            "realpython=chapar.__main__:main",
+            "chapar=chapar.__main__:main",
         ]
     },
 )

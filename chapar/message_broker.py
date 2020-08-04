@@ -3,10 +3,6 @@ from pulsar.schema import AvroSchema
 import _pulsar
 
 
-CONSUMER = 'consumer'
-PRODUCER = 'producer'
-
-
 class Consumer:
     def __init__(self, topic, subscription_name, schema_class=None):
         self.topic = topic

@@ -27,7 +27,7 @@ build: cleanup  # Build the docker image for doing things
 		-t ${DOCKER_IMAGE_TAG} \
 		.
 
-build-pkg: build # Build the Python package wheel and zip file
+build-pkg: cleanup build # Build the Python package wheel and zip file
 	$(drun) \
 		python setup.py sdist bdist_wheel
 

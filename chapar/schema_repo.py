@@ -9,6 +9,7 @@ from pulsar.schema import (
 class TextSchema(Record):
     uuid = String()
     text = String()
+    sequence_id = String()
 
 
 class TextEmbeddingSchema(Record):

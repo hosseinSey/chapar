@@ -1,9 +1,8 @@
 .PHONY: *
 
 PACKAGE_NAME := chapar
-VERSION := $(shell git describe --tags)
 DOCKERFILE_PATH := deployment/Dockerfile
-DOCKER_IMAGE_TAG := ${PACKAGE_NAME}:${VERSION}
+DOCKER_IMAGE_TAG := ${PACKAGE_NAME}
 
 drun = docker run -it --rm -v $(shell pwd):/code ${DOCKER_IMAGE_TAG}
 # drun = docker run -it --rm ${DOCKER_IMAGE_TAG}
@@ -27,7 +26,7 @@ build: cleanup  # Build the docker image for doing things
 		-t ${DOCKER_IMAGE_TAG} \
 		.
 
-build-pkg: cleanup build # Build the Python package wheel and zip file
+build-pkg: cleanup build  ## Build the Python package wheel and zip file
 	$(drun) \
 		python setup.py sdist bdist_wheel
 

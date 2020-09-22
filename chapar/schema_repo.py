@@ -7,12 +7,12 @@ from pulsar.schema import (
 
 
 class TextSchema(Record):
-    uuid = String()
+    uuid = String(required=True)
     text = String()
     sequence_id = String()
 
 
 class TextEmbeddingSchema(Record):
-    uuid = String()
+    uuid = String(required=True)
     text = String()
     embedding = Array(Float())

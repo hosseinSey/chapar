@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 here = pathlib.Path(__file__).parent
 README = (here / "README.md").read_text()
 
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 
 setup(
     name="chapar",

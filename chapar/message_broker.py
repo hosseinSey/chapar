@@ -49,6 +49,8 @@ class MessageBroker:
         if producer:
             self._producer = self.client.create_producer(
                 producer.topic,
+                batching_enabled=True,
+                batching_max_publish_delay_ms=10,
                 schema=AvroSchema(producer.schema_class)
             )
 
@@ -63,6 +65,9 @@ class MessageBroker:
 
     def producer_send(self, msg):
         self._producer.send(msg)
+
+    def producer_send_async(self, msg, send_callback=None):
+        self._producer.send_async(msg, send_callback)
 
     def close(self):
         self.client.close()
